@@ -74,7 +74,18 @@ A Java Web Application built with **Java Servlets, JSP, JDBC, and MySQL** for ma
 
 ## 🏃 How to Build and Run
 
-### Option 1: Run with Apache Tomcat & Maven
+### Option 1: Quick Run with Maven Jetty (Embedded Server)
+1. Open terminal in the project root directory.
+2. Run the embedded Jetty server:
+   ```bash
+   ./mvnw jetty:run
+   ```
+3. Open your browser and navigate to:
+   ```
+   http://localhost:8080/clinic-appointment-system/
+   ```
+
+### Option 2: Run with Apache Tomcat & Maven
 1. Open terminal in the project root directory.
 2. Package the WAR file using Maven:
    ```bash
@@ -86,7 +97,7 @@ A Java Web Application built with **Java Servlets, JSP, JDBC, and MySQL** for ma
    http://localhost:8080/clinic-appointment-system/
    ```
 
-### Option 2: Run directly in Eclipse / IntelliJ IDEA
+### Option 3: Run directly in Eclipse / IntelliJ IDEA
 1. Import project as **Existing Maven Project**.
 2. Configure **Apache Tomcat Server** in your IDE.
 3. Deploy project onto Tomcat and click **Run**.
