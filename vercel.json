@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/login.jsp",
+      "dest": "/login.html"
+    },
+    {
+      "src": "/register.jsp",
+      "dest": "/register.html"
+    },
+    {
+      "src": "/doctor-register.jsp",
+      "dest": "/doctor-register.html"
+    },
+    {
+      "src": "/index.jsp",
+      "dest": "/index.html"
+    }
+  ]
+}

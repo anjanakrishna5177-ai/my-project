@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Doctor Account - ClinicCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./src/main/webapp/css/style.css">
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-card" style="max-width: 600px;">
+            <div class="auth-header">
+                <a href="./index.html" class="brand-logo" style="justify-content: center; color: var(--secondary); margin-bottom: 1rem;">
+                    <i class="fa-solid fa-heart-pulse"></i> ClinicCare
+                </a>
+                <h2>Request Doctor Account</h2>
+                <p>Submit your professional medical details for System Administrator verification</p>
+            </div>
+
+            <form action="./registerDoctor" method="post">
+                <div class="form-group">
+                    <label class="form-label" for="name"><i class="fa-solid fa-user-md"></i> Full Name</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Dr. John Smith" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="email"><i class="fa-solid fa-envelope"></i> Email Address</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="john.smith@clinic.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="contact"><i class="fa-solid fa-phone"></i> Contact Number</label>
+                        <input type="text" id="contact" name="contact" class="form-control" placeholder="+1 555-0192" required>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="specialization"><i class="fa-solid fa-stethoscope"></i> Specialization</label>
+                        <input type="text" id="specialization" name="specialization" class="form-control" placeholder="e.g. Cardiology, Dermatology" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="qualifications"><i class="fa-solid fa-graduation-cap"></i> Qualifications</label>
+                        <input type="text" id="qualifications" name="qualifications" class="form-control" placeholder="e.g. MBBS, MD" required>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="password"><i class="fa-solid fa-lock"></i> Password</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword"><i class="fa-solid fa-shield-check"></i> Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" style="margin-top: 1rem; background: var(--accent);">
+                    <i class="fa-solid fa-paper-plane"></i> Submit Doctor Account Request
+                </button>
+            </form>
+
+            <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                Already have an account?
+                <a href="./login.html" style="color: var(--primary); font-weight: 700; text-decoration: none;">
+                    Log In Here
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="./src/main/webapp/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ClinicCare | Smart Healthcare Management</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./src/main/webapp/css/style.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            height: 76px;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.35rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: #14b8a6;
+            font-size: 1.7rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2dd4bf;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 11px 20px;
+            border-radius: 9px;
+            font-weight: 700;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            background: #0ea5e9;
+            color: white;
+        }
+
+        .btn-login:hover {
+            background: #0284c7;
+            transform: translateY(-2px);
+        }
+
+        .btn-register {
+            background: #14b8a6;
+            color: white;
+        }
+
+        .btn-register:hover {
+            background: #0d9488;
+            transform: translateY(-2px);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 610px;
+            background:
+                radial-gradient(circle at 85% 30%, rgba(20,184,166,0.18), transparent 35%),
+                linear-gradient(135deg, #0f172a 0%, #172554 55%, #0f3b46 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 75px 7%;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 17px;
+            border-radius: 30px;
+            background: rgba(20,184,166,0.15);
+            border: 1px solid rgba(45,212,191,0.3);
+            color: #5eead4;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.7rem, 5vw, 4.5rem);
+            line-height: 1.08;
+            margin: 24px 0;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 span {
+            color: #2dd4bf;
+        }
+
+        .hero p {
+            color: #cbd5e1;
+            font-size: 1.08rem;
+            line-height: 1.8;
+            max-width: 650px;
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .hero-primary {
+            background: #14b8a6;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .hero-primary:hover {
+            background: #0d9488;
+            transform: translateY(-3px);
+        }
+
+        .hero-secondary {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .hero-secondary:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* HERO CARD */
+        .dashboard-preview {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 24px;
+            padding: 24px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.25);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .preview-header h3 {
+            font-size: 1.1rem;
+        }
+
+        .online {
+            color: #5eead4;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .online::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background: #2dd4bf;
+            border-radius: 50%;
+        }
+
+        .appointment-card {
+            background: white;
+            color: #0f172a;
+            padding: 18px;
+            border-radius: 15px;
+            margin-bottom: 13px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .doctor-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #ccfbf1;
+            color: #0f766e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .appointment-info {
+            flex: 1;
+        }
+
+        .appointment-info strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .appointment-info small {
+            color: #64748b;
+        }
+
+        .appointment-time {
+            color: #0284c7;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* STATS */
+        .stats {
+            background: white;
+            padding: 25px 7%;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .stats-container {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 18px;
+        }
+
+        .stat i {
+            color: #0ea5e9;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .stat h3 {
+            font-size: 1.4rem;
+            color: #0f172a;
+        }
+
+        .stat p {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        /* SECTION */
+        .section {
+            padding: 80px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 45px;
+        }
+
+        .section-title .label {
+            color: #0d9488;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            font-size: 2.3rem;
+            margin: 10px 0;
+        }
+
+        .section-title p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        /* ROLE CARDS */
+        .role-grid {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .role-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 30px;
+            transition: 0.3s;
+            box-shadow: 0 8px 30px rgba(15,23,42,0.05);
+        }
+
+        .role-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 18px 40px rgba(15,23,42,0.1);
+        }
+
+        .role-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 15px;
+            background: #e0f2fe;
+            color: #0284c7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .role-card:nth-child(2) .role-icon {
+            background: #ccfbf1;
+            color: #0f766e;
+        }
+
+        .role-card:nth-child(3) .role-icon {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .role-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .role-card p {
+            color: #64748b;
+            line-height: 1.6;
+            font-size: 0.93rem;
+            margin-bottom: 18px;
+        }
+
+        .role-card ul {
+            list-style: none;
+        }
+
+        .role-card li {
+            color: #475569;
+            font-size: 0.88rem;
+            margin: 10px 0;
+        }
+
+        .role-card li i {
+            color: #14b8a6;
+            margin-right: 8px;
+        }
+
+        /* FEATURES */
+        .features-section {
+            background: #f1f5f9;
+        }
+
+        .feature-grid {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature i {
+            color: #0ea5e9;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* HOW IT WORKS */
+        .steps {
+            max-width: 1000px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #0f172a;
+            color: #5eead4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: 800;
+        }
+
+        .step h3 {
+            font-size: 1rem;
+            margin-bottom: 7px;
+        }
+
+        .step p {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        /* CTA */
+        .cta {
+            margin: 20px 7% 80px;
+            padding: 55px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #0f172a, #134e4a);
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            color: #cbd5e1;
+            margin-bottom: 25px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 45px 7% 25px;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+        }
+
+        footer h3 {
+            color: white;
+            margin-bottom: 14px;
+        }
+
+        footer p {
+            color: #94a3b8;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            display: block;
+            color: #94a3b8;
+            margin: 9px 0;
+            font-size: 0.9rem;
+        }
+
+        footer a:hover {
+            color: #2dd4bf;
+        }
+
+        .copyright {
+            border-top: 1px solid #1e293b;
+            margin-top: 35px;
+            padding-top: 20px;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-preview {
+                max-width: 600px;
+                width: 100%;
+                margin: auto;
+            }
+
+            .role-grid,
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 35px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 0 5%;
+            }
+
+            .nav-buttons .btn {
+                padding: 9px 12px;
+                font-size: 0.8rem;
+            }
+
+            .hero {
+                padding: 55px 5%;
+            }
+
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .section {
+                padding: 60px 5%;
+            }
+
+            .cta {
+                margin: 10px 5% 60px;
+                padding: 35px 20px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+
+    <a href="./index.html" class="logo">
+        <i class="fa-solid fa-heart-pulse"></i>
+        ClinicCare
+    </a>
+
+    <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#roles">Roles</a>
+        <a href="#how-it-works">How It Works</a>
+    </nav>
+
+    <div class="nav-buttons">
+        <a href="./login.html" class="btn btn-login">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Login
+        </a>
+
+        <a href="./register.html" class="btn btn-register">
+            <i class="fa-solid fa-user-plus"></i>
+            Register
+        </a>
+    </div>
+
+</header>
+
+<!-- HERO -->
+<section class="hero">
+
+    <div class="hero-container">
+
+        <div>
+
+            <div class="badge">
+                <i class="fa-solid fa-shield-heart"></i>
+                SMART HEALTHCARE APPOINTMENT MANAGEMENT
+            </div>
+
+            <h1>
+                Healthcare Made <span>Simpler.</span><br>
+                Appointments Made <span>Smarter.</span>
+            </h1>
+
+            <p>
+                ClinicCare brings patients, doctors and administrators
+                together in one secure platform for simple appointment
+                booking, doctor availability and healthcare management.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="./login.html" class="hero-primary">
+                    Get Started
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <a href="#features" class="hero-secondary">
+                    Explore Features
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- DASHBOARD PREVIEW -->
+        <div class="dashboard-preview">
+
+            <div class="preview-header">
+
+                <h3>
+                    <i class="fa-solid fa-calendar-check"></i>
+                    Upcoming Appointments
+                </h3>
+
+                <span class="online">System Online</span>
+
+            </div>
+
+            <div class="appointment-card">
+
+                <div class="doctor-icon">
+                    <i class="fa-solid fa-user-doctor"></i>
+                </div>
+
+                <div class="appointment-info">
+                    <strong>Doctor Appointment</strong>
+                    <small>Manage your healthcare easily</small>
+                </div>
+
+                <span class="appointment-time">
+                    24h Reminder
+                </span>
+
+            </div>
+
+            <div class="appointment-card">
+
+                <div class="doctor-icon">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+
+                <div class="appointment-info">
+                    <strong>Available Time Slots</strong>
+                    <small>Choose a convenient appointment</small>
+                </div>
+
+                <span class="appointment-time">
+                    Available
+                </span>
+
+            </div>
+
+            <div class="appointment-card">
+
+                <div class="doctor-icon">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+
+                <div class="appointment-info">
+                    <strong>Secure Access</strong>
+                    <small>Role-based healthcare management</small>
+                </div>
+
+                <span class="appointment-time">
+                    Secure
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SYSTEM STATS -->
+<section class="stats">
+
+    <div class="stats-container">
+
+        <div class="stat">
+            <i class="fa-solid fa-user-group"></i>
+            <h3>3</h3>
+            <p>User Roles</p>
+        </div>
+
+        <div class="stat">
+            <i class="fa-solid fa-calendar-check"></i>
+            <h3>24/7</h3>
+            <p>Appointment Access</p>
+        </div>
+
+        <div class="stat">
+            <i class="fa-solid fa-bell"></i>
+            <h3>24h</h3>
+            <p>Reminder System</p>
+        </div>
+
+        <div class="stat">
+            <i class="fa-solid fa-lock"></i>
+            <h3>Secure</h3>
+            <p>Role-Based Access</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ROLES -->
+<section class="section" id="roles">
+
+    <div class="section-title">
+
+        <span class="label">One Platform</span>
+
+        <h2>Everything You Need in One Place</h2>
+
+        <p>
+            ClinicCare provides dedicated features for patients,
+            doctors and administrators.
+        </p>
+
+    </div>
+
+    <div class="role-grid">
+
+        <!-- PATIENT -->
+        <div class="role-card">
+
+            <div class="role-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <h3>For Patients</h3>
+
+            <p>
+                Easily find doctors and manage your appointments
+                from one convenient dashboard.
+            </p>
+
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Search doctors</li>
+                <li><i class="fa-solid fa-check"></i> View available slots</li>
+                <li><i class="fa-solid fa-check"></i> Book appointments</li>
+                <li><i class="fa-solid fa-check"></i> Reschedule or cancel</li>
+            </ul>
+
+        </div>
+
+        <!-- DOCTOR -->
+        <div class="role-card">
+
+            <div class="role-icon">
+                <i class="fa-solid fa-user-doctor"></i>
+            </div>
+
+            <h3>For Doctors</h3>
+
+            <p>
+                Manage availability, appointments and patient
+                information through your dedicated portal.
+            </p>
+
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Manage availability</li>
+                <li><i class="fa-solid fa-check"></i> View appointments</li>
+                <li><i class="fa-solid fa-check"></i> View patients</li>
+                <li><i class="fa-solid fa-check"></i> Manage profile</li>
+            </ul>
+
+        </div>
+
+        <!-- ADMIN -->
+        <div class="role-card">
+
+            <div class="role-icon">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+
+            <h3>For Administrators</h3>
+
+            <p>
+                Control the clinic system and manage doctors,
+                patients and appointments efficiently.
+            </p>
+
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Manage doctors</li>
+                <li><i class="fa-solid fa-check"></i> Approve doctor requests</li>
+                <li><i class="fa-solid fa-check"></i> Manage patients</li>
+                <li><i class="fa-solid fa-check"></i> Monitor appointments</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FEATURES -->
+<section class="section features-section" id="features">
+
+    <div class="section-title">
+
+        <span class="label">Powerful Features</span>
+
+        <h2>Designed for Better Healthcare</h2>
+
+        <p>
+            Simple tools that make appointment management faster
+            and more organized.
+        </p>
+
+    </div>
+
+    <div class="feature-grid">
+
+        <div class="feature">
+            <i class="fa-solid fa-calendar-plus"></i>
+            <h3>Easy Appointment Booking</h3>
+            <p>
+                Patients can quickly select doctors and available
+                time slots.
+            </p>
+        </div>
+
+        <div class="feature">
+            <i class="fa-solid fa-clock"></i>
+            <h3>Doctor Availability</h3>
+            <p>
+                Doctors can manage their available appointment slots.
+            </p>
+        </div>
+
+        <div class="feature">
+            <i class="fa-solid fa-bell"></i>
+            <h3>24-Hour Reminders</h3>
+            <p>
+                Upcoming appointments can be highlighted through
+                the reminder system.
+            </p>
+        </div>
+
+        <div class="feature">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <h3>Doctor Search</h3>
+            <p>
+                Patients can search for doctors based on available
+                information.
+            </p>
+        </div>
+
+        <div class="feature">
+            <i class="fa-solid fa-users"></i>
+            <h3>Patient Management</h3>
+            <p>
+                Administrators and doctors can access relevant
+                patient information.
+            </p>
+        </div>
+
+        <div class="feature">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h3>Role-Based Security</h3>
+            <p>
+                Different dashboards and access levels are provided
+                for each user role.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how-it-works">
+
+    <div class="section-title">
+
+        <span class="label">Simple Process</span>
+
+        <h2>How ClinicCare Works</h2>
+
+        <p>
+            Managing an appointment takes only a few simple steps.
+        </p>
+
+    </div>
+
+    <div class="steps">
+
+        <div class="step">
+            <div class="step-number">01</div>
+            <h3>Register / Login</h3>
+            <p>Create an account or securely sign in.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">02</div>
+            <h3>Find a Doctor</h3>
+            <p>Search doctors and view their availability.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">03</div>
+            <h3>Choose a Slot</h3>
+            <p>Select a suitable available appointment.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">04</div>
+            <h3>Manage Appointment</h3>
+            <p>Book, reschedule or cancel when needed.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CTA -->
+<section class="cta">
+
+    <h2>Ready to Manage Healthcare Smarter?</h2>
+
+    <p>Start using ClinicCare to simplify appointment management.</p>
+
+    <a href="./login.html" class="hero-primary">
+        Get Started
+        <i class="fa-solid fa-arrow-right"></i>
+    </a>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="footer-container">
+
+        <div>
+            <h3>
+                <i class="fa-solid fa-heart-pulse"></i>
+                ClinicCare
+            </h3>
+            <p>
+                A Java-based clinic appointment management system
+                designed to connect patients, doctors and administrators
+                through a simple digital platform.
+            </p>
+        </div>
+
+        <div>
+            <h3>Quick Links</h3>
+            <a href="./index.html">Home</a>
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="./login.html">Login</a>
+        </div>
+
+        <div>
+            <h3>Accounts</h3>
+            <a href="./register.html">Patient Registration</a>
+            <a href="./doctor-register.html">Doctor Registration</a>
+            <a href="./login.html">Admin Login</a>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 ClinicCare System. College Project.
+    </div>
+
+</footer>
+
+</body>
+</html>
