@@ -1,5 +1,9 @@
-# Clinic Appointment Management System
 
+# ClinicCare | Smart Healthcare Management
+
+## 🌐 Live Website
+
+[Visit ClinicCare](https://cliniccare-fuz4.onrender.com/)
 A Java Web Application built with **Java Servlets, JSP, JDBC, and MySQL** for managing healthcare clinic operations, doctor time slot availabilities, patient registrations, appointment bookings, rescheduling, cancellations, and 24-hour upcoming appointment reminders.
 
 ---
