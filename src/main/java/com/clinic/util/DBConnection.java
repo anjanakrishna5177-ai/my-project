@@ -7,63 +7,101 @@ import java.sql.SQLException;
 public class DBConnection {
 
     private static String getDbUrl() {
+
         String dbUrl = System.getenv("DB_URL");
+
         if (dbUrl != null && !dbUrl.trim().isEmpty()) {
-            return dbUrl.trim();
+
+            dbUrl = dbUrl.trim();
+
+            // Convert mysql:// to JDBC format if necessary
+            if (dbUrl.startsWith("mysql://")) {
+                dbUrl = "jdbc:mysql://" + dbUrl.substring("mysql://".length());
+            }
+
+            // Ensure JDBC prefix exists
+            if (!dbUrl.startsWith("jdbc:mysql://")) {
+                throw new IllegalStateException(
+                        "DB_URL must start with jdbc:mysql://"
+                );
+            }
+
+            // Add SSL requirement for Aiven if no SSL option exists
+            if (!dbUrl.contains("ssl-mode=")
+                    && !dbUrl.contains("sslMode=")
+                    && !dbUrl.contains("useSSL=")) {
+
+                dbUrl += dbUrl.contains("?")
+                        ? "&ssl-mode=REQUIRED"
+                        : "?ssl-mode=REQUIRED";
+            }
+
+            return dbUrl;
         }
 
-        String host = System.getenv("DB_HOST");
-        if (host != null && !host.trim().isEmpty()) {
-            String port = System.getenv("DB_PORT");
-            if (port == null || port.trim().isEmpty()) {
-                port = "3306";
-            }
-            String dbName = System.getenv("DB_NAME");
-            if (dbName == null || dbName.trim().isEmpty()) {
-                dbName = "clinic_db";
-            }
-            return "jdbc:mysql://" + host.trim() + ":" + port.trim() + "/" + dbName.trim() + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-        }
-
-        return System.getProperty("db.url", "jdbc:mysql://localhost:3306/clinic_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
+        // Local development fallback
+        return "jdbc:mysql://localhost:3306/clinic_db"
+                + "?useSSL=false"
+                + "&allowPublicKeyRetrieval=true"
+                + "&serverTimezone=UTC";
     }
 
     private static String getDbUser() {
+
         String user = System.getenv("DB_USER");
-        if (user != null && !user.trim().isEmpty()) {
-            return user.trim();
+
+        if (user == null || user.trim().isEmpty()) {
+            throw new IllegalStateException(
+                    "DB_USER environment variable is not configured."
+            );
         }
-        return System.getProperty("db.user", "clinic_app");
+
+        return user.trim();
     }
 
     private static String getDbPassword() {
-        String pass = System.getenv("DB_PASSWORD");
-        if (pass != null) {
-            return pass;
+
+        String password = System.getenv("DB_PASSWORD");
+
+        if (password == null || password.isEmpty()) {
+            throw new IllegalStateException(
+                    "DB_PASSWORD environment variable is not configured."
+            );
         }
-        return System.getProperty("db.password", "ClinicApp@123");
+
+        return password;
     }
 
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            System.err.println("MySQL JDBC Driver not found in classpath!");
-            e.printStackTrace();
+            throw new RuntimeException(
+                    "MySQL JDBC Driver not found.",
+                    e
+            );
         }
     }
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(getDbUrl(), getDbUser(), getDbPassword());
-    }
 
-    public static void closeConnection(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        String url = getDbUrl();
+
+        System.out.println("Attempting database connection...");
+        System.out.println(
+                "Database host configured: "
+                        + url.replaceAll("://.*?@", "://***@")
+        );
+
+        Connection connection =
+                DriverManager.getConnection(
+                        url,
+                        getDbUser(),
+                        getDbPassword()
+                );
+
+        System.out.println("Database connection successful.");
+
+        return connection;
     }
 }
